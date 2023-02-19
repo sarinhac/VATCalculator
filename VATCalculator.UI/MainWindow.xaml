@@ -1,0 +1,76 @@
+﻿<Window x:Class="VATCalculator.UI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VATCalculator.UI"
+        mc:Ignorable="d"
+        Title="VAT Calculator" Height="400" MinHeight="250" Width="500" MinWidth="350">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.75*" MinWidth="150" />
+            <ColumnDefinition Width="*" MinWidth="200"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45"/>
+            <RowDefinition Height="45"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+
+        <Label Content="Contry" Grid.Column="0" Grid.Row="0" 
+               VerticalAlignment="Center" Margin="5,0,0,0"/>
+        <ComboBox x:Name="cbCountry" Grid.Column="1" Grid.Row="0" Height="25" 
+                  Width="90" HorizontalAlignment="Left" Margin="5,0,0,0"
+                  SelectionChanged="CbCountry_SelectionChanged">
+            <ComboBoxItem Content="France"/>
+            <ComboBoxItem Content="Portugal" />
+            <ComboBoxItem Content="Spain"/>
+            <ComboBoxItem Content="United Kingdom"/>
+        </ComboBox>
+        <Separator Grid.ColumnSpan="2" Grid.Row="0" 
+                   VerticalAlignment="Bottom" Background="LightGray"/>
+        
+        <Label Content="VAT rate" Grid.Column="0" Grid.Row="1" 
+               VerticalAlignment="Center" Margin="5,0,0,0"/>
+        <StackPanel Name="spVatRate" Grid.Column="1" Grid.Row="1" Orientation="Horizontal" 
+                    VerticalAlignment="Center" Margin="5,0,0,0" >
+            
+        </StackPanel>
+        <Separator Grid.ColumnSpan="2" Grid.Row="1 " 
+                   VerticalAlignment="Bottom" Background="LightGray"/>
+
+        <StackPanel Grid.Column="0" Grid.Row="2" 
+                    Orientation="Horizontal" Margin="5,0,0,0">
+            <CheckBox x:Name="cbPriceWithoutVAT" VerticalAlignment="Center"
+                      Checked="CbPriceWithoutVAT_Checked"/>
+            <TextBlock Text="Price without VAT" VerticalAlignment="Center"
+                   TextWrapping="WrapWithOverflow"/>
+        </StackPanel>
+        <TextBox x:Name="tbPriceWithoutVAT" Grid.Column="1" Grid.Row="2" Height="20" Width="75" 
+                 HorizontalAlignment="Left" Margin="5,0,0,0"
+                 IsEnabled="False" PreviewTextInput="NumberValidationTextBox"/>
+
+        <StackPanel Grid.Column="0" Grid.Row="3" 
+                    Orientation="Horizontal" Margin="5,0,0,0">
+            <CheckBox x:Name="cbValueAddedTax" VerticalAlignment="Center"
+                      Checked="CbValueAddedTax_Checked"/>
+            <TextBlock  Text="Value-Added Tax" VerticalAlignment="Center"
+                  TextWrapping="Wrap" />
+        </StackPanel>
+        <TextBox x:Name="tbValueAddedTax" Grid.Column="1" Grid.Row="3" Height="20" Width="75" 
+                 HorizontalAlignment="Left" Margin="5,0,0,0"
+                 IsEnabled="False" PreviewTextInput="NumberValidationTextBox"/>
+        <StackPanel Grid.Column="0" Grid.Row="4" 
+                    Orientation="Horizontal" Margin="5,0,0,0">
+            <CheckBox x:Name="cbPriceIncludVAT" VerticalAlignment="Center"
+                      Checked="CbPriceIncludVAT_Checked"/>
+            <TextBlock Text="Price incl. VAT"  VerticalAlignment="Center"
+                   TextWrapping="WrapWithOverflow"/>
+        </StackPanel>
+        <TextBox x:Name="tbPriceIncludVAT" Grid.Column="1" Grid.Row="4" Height="20" Width="75" 
+                 HorizontalAlignment="Left" Margin="5,0,0,0"
+                 IsEnabled="False" PreviewTextInput="NumberValidationTextBox"/>
+    </Grid>
+</Window>
