@@ -40,3 +40,6 @@ D:\VATCalculator\VATCalculator.UI\obj\Debug\net6.0-windows\refint\VATCalculator.
 D:\VATCalculator\VATCalculator.UI\obj\Debug\net6.0-windows\VATCalculator.UI.pdb
 D:\VATCalculator\VATCalculator.UI\obj\Debug\net6.0-windows\VATCalculator.UI.genruntimeconfig.cache
 D:\VATCalculator\VATCalculator.UI\obj\Debug\net6.0-windows\ref\VATCalculator.UI.dll
+D:\VATCalculator\VATCalculator.UI\bin\Debug\net6.0-windows\VATCalculator.Logic.dll
+D:\VATCalculator\VATCalculator.UI\bin\Debug\net6.0-windows\VATCalculator.Logic.pdb
+D:\VATCalculator\VATCalculator.UI\obj\Debug\net6.0-windows\VATCalculator.UI.csproj.CopyComplete

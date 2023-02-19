@@ -48,9 +48,10 @@
             <TextBlock Text="Price without VAT" VerticalAlignment="Center"
                    TextWrapping="WrapWithOverflow"/>
         </StackPanel>
-        <TextBox x:Name="tbPriceWithoutVAT" Grid.Column="1" Grid.Row="2" Height="20" Width="75" 
-                 HorizontalAlignment="Left" Margin="5,0,0,0"
-                 IsEnabled="False" PreviewTextInput="NumberValidationTextBox"/>
+        <TextBox x:Name="tbPriceWithoutVAT" Grid.Column="1" Grid.Row="2" 
+                 Height="20" Width="Auto" MinWidth="75" TextAlignment="Right"
+                 HorizontalAlignment="Left" Margin="5,0,0,0" IsEnabled="False" 
+                 PreviewTextInput="NumberValidationTextBox" TextChanged="TbValueAddedTax_TextChanged"/>
 
         <StackPanel Grid.Column="0" Grid.Row="3" 
                     Orientation="Horizontal" Margin="5,0,0,0">
@@ -59,9 +60,11 @@
             <TextBlock  Text="Value-Added Tax" VerticalAlignment="Center"
                   TextWrapping="Wrap" />
         </StackPanel>
-        <TextBox x:Name="tbValueAddedTax" Grid.Column="1" Grid.Row="3" Height="20" Width="75" 
-                 HorizontalAlignment="Left" Margin="5,0,0,0"
-                 IsEnabled="False" PreviewTextInput="NumberValidationTextBox"/>
+        <TextBox x:Name="tbValueAddedTax" Grid.Column="1" Grid.Row="3"
+                 Height="20" Width="Auto" MinWidth="75" TextAlignment="Right"
+                 HorizontalAlignment="Left" Margin="5,0,0,0" IsEnabled="False" 
+                 PreviewTextInput="NumberValidationTextBox" TextChanged="TbValueAddedTax_TextChanged" />
+        
         <StackPanel Grid.Column="0" Grid.Row="4" 
                     Orientation="Horizontal" Margin="5,0,0,0">
             <CheckBox x:Name="cbPriceIncludVAT" VerticalAlignment="Center"
@@ -69,8 +72,9 @@
             <TextBlock Text="Price incl. VAT"  VerticalAlignment="Center"
                    TextWrapping="WrapWithOverflow"/>
         </StackPanel>
-        <TextBox x:Name="tbPriceIncludVAT" Grid.Column="1" Grid.Row="4" Height="20" Width="75" 
-                 HorizontalAlignment="Left" Margin="5,0,0,0"
-                 IsEnabled="False" PreviewTextInput="NumberValidationTextBox"/>
+        <TextBox x:Name="tbPriceIncludVAT" Grid.Column="1" Grid.Row="4"
+                 Height="20" Width="Auto" MinWidth="75" TextAlignment="Right"
+                 HorizontalAlignment="Left" Margin="5,0,0,0" IsEnabled="False" 
+                 PreviewTextInput="NumberValidationTextBox" TextChanged="TbValueAddedTax_TextChanged"/>
     </Grid>
 </Window>

@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using VATCalculator.Logic.Models;
 
 namespace VATCalculator.UI
 {
@@ -12,10 +14,21 @@ namespace VATCalculator.UI
     /// </summary>
     public partial class MainWindow : Window
     {
+        #region Const
+
         private const string France = "France";
         private const string Portugal = "Portugal";
         private const string Spain = "Spain";
         private const string UK = "United Kingdom";
+
+        private const string GrossAmout = "tbPriceIncludVAT";
+        private const string VATAmount = "tbValueAddedTax";
+        private const string NetAmount = "tbPriceWithoutVAT";
+
+        #endregion
+
+        private decimal _taxValue = 0.0M;
+        private Double[] _taxValues = Array.Empty<double>();
 
         public MainWindow()
         {
@@ -26,7 +39,8 @@ namespace VATCalculator.UI
 
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
         {
-            Regex regex = new Regex("^[.][0-9]+$|^[0-9]*[.]{0,1}[0-9]*$");
+            Regex regex = new Regex("^[0-9]{1,5}([,\\.][0-9]{0,2})?$");
+
             e.Handled = !regex.IsMatch((sender as TextBox)
                     .Text.Insert((sender as TextBox)
                     .SelectionStart,
@@ -40,13 +54,16 @@ namespace VATCalculator.UI
                                                   .Content;
 
             var vatValues = GetVatRatesFromCountry(cbValue);
+            _taxValues = vatValues.ToArray();
 
             int i = 1;
+            spVatRate.Children.Clear();
+
             foreach (var value in vatValues)
             {
                 spVatRate.Children.Add(new CheckBox
                 {
-                    Name = $"cb{cbValue}Percent{i}",
+                    Name = $"cb{cbValue.Trim()}Percent{i}",
                     VerticalAlignment = VerticalAlignment.Center,
                     Margin = new Thickness(5, 0, 0, 0),
                 });
@@ -74,24 +91,30 @@ namespace VATCalculator.UI
             var cbVat = (CheckBox)(FrameworkElement)sender;
             var spVat = (StackPanel)cbVat.Parent;
 
-            foreach(var child in spVat.Children)
+            foreach (var child in spVat.Children)
             {
-                if(child is CheckBox cbChild && cbChild.Name != cbVat.Name)
+                if (child is CheckBox cbChild && cbChild.Name != cbVat.Name)
                 {
                     cbChild.IsChecked = false;
                 }
             }
 
-            cbValueAddedTax.IsChecked = true;
-            tbValueAddedTax.IsEnabled = true;
+            int index = Convert.ToInt16(cbVat.Name.Last().ToString());
+            _taxValue = Convert.ToDecimal(_taxValues[index-1]);
+            
+            cbPriceWithoutVAT.IsChecked = true;
+            
+            tbPriceWithoutVAT.Text = string.Empty;
+            tbValueAddedTax.Text = string.Empty;
+            tbPriceIncludVAT.Text = string.Empty;
         }
 
         private void CbPriceWithoutVAT_Checked(object sender, RoutedEventArgs e)
         {
             tbPriceWithoutVAT.IsEnabled = true;
 
-            cbPriceIncludVAT.IsChecked= false;
-            tbPriceIncludVAT.IsEnabled= false;
+            cbPriceIncludVAT.IsChecked = false;
+            tbPriceIncludVAT.IsEnabled = false;
 
             cbValueAddedTax.IsChecked = false;
             tbValueAddedTax.IsEnabled = false;
@@ -119,6 +142,27 @@ namespace VATCalculator.UI
             tbPriceWithoutVAT.IsEnabled = false;
         }
 
+        private void TbValueAddedTax_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var textbox = (TextBox)(FrameworkElement)sender;
+            if (textbox.IsEnabled == false)
+                return;
+            else if (String.IsNullOrEmpty(textbox.Text) || textbox.Text == "0")
+                return;
+            else if(textbox.Text.Last().ToString() == "," || textbox.Text.Last().ToString() == ".")
+                return;
+
+            if (textbox.Text.Contains("."))
+                textbox.Text = textbox.Text.Replace(".", ",");
+
+            var calculatorInfo = FillValue((TextBox)(FrameworkElement)sender);
+
+            tbPriceIncludVAT.Text = String.Format("{0:0.##}", calculatorInfo.GrossAmount);
+            tbPriceWithoutVAT.Text = String.Format("{0:0.##}", calculatorInfo.NetAmount);
+            tbValueAddedTax.Text = String.Format("{0:0.##}", calculatorInfo.VATAmount);
+            textbox.SelectionStart = textbox.Text.Length;
+        }
+
 
         #endregion
 
@@ -136,6 +180,34 @@ namespace VATCalculator.UI
             };
         }
 
+        private VATCalculatorInfo FillValue(TextBox textBox)
+        {
+            var tbName = textBox.Name;
+
+            VATCalculatorInfo calculatorInfo = new VATCalculatorInfo()
+            {
+                Tax = _taxValue
+            };
+
+            switch (tbName)
+            {
+                case GrossAmout:
+                    calculatorInfo.GrossAmount = Convert.ToDecimal(textBox.Text);
+                    break;
+                case VATAmount:
+                    calculatorInfo.VATAmount = Convert.ToDecimal(textBox.Text);
+                    break;
+                case NetAmount:
+                    calculatorInfo.NetAmount = Convert.ToDecimal(textBox.Text);
+                    break;
+            };
+
+            calculatorInfo.FillInfo();
+            return calculatorInfo;
+
+        }
+
         #endregion
+
     }
 }

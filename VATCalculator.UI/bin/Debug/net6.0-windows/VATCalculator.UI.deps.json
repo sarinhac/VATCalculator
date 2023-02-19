@@ -7,14 +7,27 @@
   "targets": {
     ".NETCoreApp,Version=v6.0": {
       "VATCalculator.UI/1.0.0": {
+        "dependencies": {
+          "VATCalculator.Logic": "1.0.0"
+        },
         "runtime": {
           "VATCalculator.UI.dll": {}
+        }
+      },
+      "VATCalculator.Logic/1.0.0": {
+        "runtime": {
+          "VATCalculator.Logic.dll": {}
         }
       }
     }
   },
   "libraries": {
     "VATCalculator.UI/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "VATCalculator.Logic/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

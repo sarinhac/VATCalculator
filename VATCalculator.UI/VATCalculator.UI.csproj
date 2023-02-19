@@ -7,4 +7,8 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\VATCalculator.Logic\VATCalculator.Logic.csproj" />
+  </ItemGroup>
+
 </Project>

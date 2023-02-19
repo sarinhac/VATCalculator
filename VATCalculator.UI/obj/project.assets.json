@@ -1,11 +1,30 @@
 {
   "version": 3,
   "targets": {
-    "net6.0-windows7.0": {}
+    "net6.0-windows7.0": {
+      "VATCalculator.Logic/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/VATCalculator.Logic.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/VATCalculator.Logic.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "VATCalculator.Logic/1.0.0": {
+      "type": "project",
+      "path": "../VATCalculator.Logic/VATCalculator.Logic.csproj",
+      "msbuildProject": "../VATCalculator.Logic/VATCalculator.Logic.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net6.0-windows7.0": []
+    "net6.0-windows7.0": [
+      "VATCalculator.Logic >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\sarah\\.nuget\\packages\\": {},
@@ -39,7 +58,11 @@
       "frameworks": {
         "net6.0-windows7.0": {
           "targetAlias": "net6.0-windows",
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\VATCalculator\\VATCalculator.Logic\\VATCalculator.Logic.csproj": {
+              "projectPath": "D:\\VATCalculator\\VATCalculator.Logic\\VATCalculator.Logic.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
